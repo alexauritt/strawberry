@@ -135,7 +135,7 @@ class User:
         return None
 
     @classmethod
-    def resolve_reference(cls, **data: Any) -> Optional["User"]:
+    def resolve_reference(cls: "User", **data: Any) -> Optional["User"]:
         if email := data.get("email"):
             years_of_employment = data.get("yearsOfEmployment")
 
@@ -173,7 +173,7 @@ class ProductResearch:
     outcome: Optional[str]
 
     @classmethod
-    def from_data(cls, data: dict) -> "ProductResearch":
+    def from_data(cls: "ProductResearch", data: dict) -> "ProductResearch":
         return ProductResearch(
             study=CaseStudy(
                 case_number=data["study"]["case_number"],
@@ -183,7 +183,9 @@ class ProductResearch:
         )
 
     @classmethod
-    def resolve_reference(cls, **data: Any) -> Optional["ProductResearch"]:
+    def resolve_reference(
+        cls: "ProductResearch", **data: Any
+    ) -> Optional["ProductResearch"]:
         study = data.get("study")
 
         if not study:
@@ -211,7 +213,9 @@ class DeprecatedProduct:
     created_by: Optional[User]
 
     @classmethod
-    def resolve_reference(cls, **data: Any) -> Optional["DeprecatedProduct"]:
+    def resolve_reference(
+        cls: "DeprecatedProduct", **data: Any
+    ) -> Optional["DeprecatedProduct"]:
         if deprecated_product["sku"] == data.get("sku") and deprecated_product[
             "package"
         ] == data.get("package"):
@@ -256,7 +260,7 @@ class Product:
     research: List[ProductResearch]
 
     @classmethod
-    def from_data(cls, data: dict) -> "Product":
+    def from_data(cls: "Product", data: dict) -> "Product":
         research = [
             ProductResearch.from_data(research) for research in data.get("research", [])
         ]
@@ -271,7 +275,7 @@ class Product:
         )
 
     @classmethod
-    def resolve_reference(cls, **data: Any) -> Optional["Product"]:
+    def resolve_reference(cls: "Product", **data: Any) -> Optional["Product"]:
         if "id" in data:
             return get_product_by_id(id=data["id"])
 
@@ -294,7 +298,7 @@ class Inventory:
     deprecated_products: List[DeprecatedProduct]
 
     @classmethod
-    def resolve_reference(cls, id: strawberry.ID) -> "Inventory":
+    def resolve_reference(cls: "Inventory", id: strawberry.ID) -> "Inventory":
         return Inventory(
             id=id, deprecated_products=[DeprecatedProduct(**deprecated_product)]
         )

@@ -45,15 +45,15 @@ class ObjectIsNotClassError(StrawberryException):
         super().__init__(self.message)
 
     @classmethod
-    def input(cls, obj: object) -> ObjectIsNotClassError:
+    def input(cls: ObjectIsNotClassError, obj: object) -> ObjectIsNotClassError:
         return cls(obj, cls.MethodType.INPUT)
 
     @classmethod
-    def interface(cls, obj: object) -> ObjectIsNotClassError:
+    def interface(cls: ObjectIsNotClassError, obj: object) -> ObjectIsNotClassError:
         return cls(obj, cls.MethodType.INTERFACE)
 
     @classmethod
-    def type(cls, obj: object) -> ObjectIsNotClassError:
+    def type(cls: ObjectIsNotClassError, obj: object) -> ObjectIsNotClassError:
         return cls(obj, cls.MethodType.TYPE)
 
     @cached_property

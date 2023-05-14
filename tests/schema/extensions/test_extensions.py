@@ -200,7 +200,7 @@ class ExampleExtension(SchemaExtension):
     called_hooks: Set[int]
 
     @classmethod
-    def perform_test(cls) -> None:
+    def perform_test(cls: "ExampleExtension") -> None:
         assert cls.called_hooks == cls.expected
 
 

@@ -20,7 +20,7 @@ class Result:
     column: int
 
     @classmethod
-    def from_output_line(cls, output_line: str) -> "Result":
+    def from_output_line(cls: "Result", output_line: str) -> "Result":
         # an output line looks like: filename.py:11:6 - type: Message
 
         file_info, result = output_line.split("-", maxsplit=1)

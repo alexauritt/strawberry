@@ -89,7 +89,7 @@ class FragmentSpread:
 
     @classmethod
     def from_node(
-        cls,
+        cls: FragmentSpread,
         info: GraphQLResolveInfo,
         node: GQLFragmentSpreadNode,
     ) -> FragmentSpread:
@@ -116,7 +116,7 @@ class InlineFragment:
 
     @classmethod
     def from_node(
-        cls,
+        cls: InlineFragment,
         info: GraphQLResolveInfo,
         node: GQLInlineFragmentNode,
     ) -> InlineFragment:
@@ -140,7 +140,9 @@ class SelectedField:
     alias: Optional[str] = None
 
     @classmethod
-    def from_node(cls, info: GraphQLResolveInfo, node: GQLFieldNode) -> SelectedField:
+    def from_node(
+        cls: SelectedField, info: GraphQLResolveInfo, node: GQLFieldNode
+    ) -> SelectedField:
         return cls(
             name=node.name.value,
             directives=convert_directives(info, node.directives),

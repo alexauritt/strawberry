@@ -94,7 +94,9 @@ class StrawberryArgument:
         return self.type_annotation.resolve()
 
     @classmethod
-    def _annotation_is_annotated(cls, annotation: StrawberryAnnotation) -> bool:
+    def _annotation_is_annotated(
+        cls: StrawberryArgument, annotation: StrawberryAnnotation
+    ) -> bool:
         return get_origin(annotation.annotation) is Annotated
 
     def _parse_annotated(self):

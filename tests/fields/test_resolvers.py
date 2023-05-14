@@ -85,7 +85,7 @@ def test_classmethod_resolver_fields():
 
         @strawberry.field
         @classmethod
-        def val(cls) -> str:
+        def val(cls: "Query") -> str:
             return cls.my_val
 
     definition = Query._type_definition

@@ -212,7 +212,7 @@ def test_classmethod_resolvers():
         age: int
 
         @classmethod
-        def get_users(cls) -> "List[User]":
+        def get_users(cls: User) -> "List[User]":
             return [cls(name="Bob", age=10), cls(name="Nancy", age=30)]
 
     @strawberry.type

@@ -435,7 +435,7 @@ def test_union_explicit_type_resolution():
         a: int
 
         @classmethod
-        def is_type_of(cls, obj, _info) -> bool:
+        def is_type_of(cls: ADataclass, obj, _info) -> bool:
             return isinstance(obj, ADataclass)
 
     @strawberry.type

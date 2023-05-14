@@ -109,7 +109,7 @@ def test_interface_duck_typing():
         name: str
 
         @classmethod
-        def is_type_of(cls, obj, _info) -> bool:
+        def is_type_of(cls: "Anime", obj, _info) -> bool:
             return isinstance(obj, AnimeORM)
 
     @dataclass
@@ -150,7 +150,7 @@ def test_interface_explicit_type_resolution():
         name: str
 
         @classmethod
-        def is_type_of(cls, obj, _info) -> bool:
+        def is_type_of(cls: "Anime", obj, _info) -> bool:
             return isinstance(obj, AnimeORM)
 
     @strawberry.type

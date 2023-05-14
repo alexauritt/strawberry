@@ -17,7 +17,7 @@ class StrawberryLogger:
 
     @classmethod
     def error(
-        cls,
+        cls: StrawberryLogger,
         error: GraphQLError,
         execution_context: Optional[ExecutionContext] = None,
         # https://www.python.org/dev/peps/pep-0484/#arbitrary-argument-lists-and-default-argument-values

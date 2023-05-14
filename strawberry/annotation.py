@@ -183,12 +183,12 @@ class StrawberryAnnotation:
         return union
 
     @classmethod
-    def _is_async_type(cls, annotation: type) -> bool:
+    def _is_async_type(cls: StrawberryAnnotation, annotation: type) -> bool:
         origin = getattr(annotation, "__origin__", None)
         return origin in ASYNC_TYPES
 
     @classmethod
-    def _is_enum(cls, annotation: Any) -> bool:
+    def _is_enum(cls: StrawberryAnnotation, annotation: Any) -> bool:
         # Type aliases are not types so we need to make sure annotation can go into
         # issubclass
         if not isinstance(annotation, type):
@@ -196,18 +196,18 @@ class StrawberryAnnotation:
         return issubclass(annotation, Enum)
 
     @classmethod
-    def _is_generic(cls, annotation: Any) -> bool:
+    def _is_generic(cls: StrawberryAnnotation, annotation: Any) -> bool:
         if hasattr(annotation, "__origin__"):
             return is_generic(annotation.__origin__)
 
         return False
 
     @classmethod
-    def _is_lazy_type(cls, annotation: Any) -> bool:
+    def _is_lazy_type(cls: StrawberryAnnotation, annotation: Any) -> bool:
         return isinstance(annotation, LazyType)
 
     @classmethod
-    def _is_optional(cls, annotation: Any) -> bool:
+    def _is_optional(cls: StrawberryAnnotation, annotation: Any) -> bool:
         """Returns True if the annotation is Optional[SomeType]"""
 
         # Optionals are represented as unions
@@ -220,7 +220,7 @@ class StrawberryAnnotation:
         return any(x is type(None) for x in types)
 
     @classmethod
-    def _is_list(cls, annotation: Any) -> bool:
+    def _is_list(cls: StrawberryAnnotation, annotation: Any) -> bool:
         """Returns True if annotation is a List"""
 
         annotation_origin = getattr(annotation, "__origin__", None)
@@ -228,7 +228,7 @@ class StrawberryAnnotation:
         return (annotation_origin in (list, tuple)) or annotation_origin is abc.Sequence
 
     @classmethod
-    def _is_strawberry_type(cls, evaled_type: Any) -> bool:
+    def _is_strawberry_type(cls: StrawberryAnnotation, evaled_type: Any) -> bool:
         # Prevent import cycles
         from strawberry.union import StrawberryUnion
 
@@ -255,7 +255,7 @@ class StrawberryAnnotation:
         return False
 
     @classmethod
-    def _is_union(cls, annotation: Any) -> bool:
+    def _is_union(cls: StrawberryAnnotation, annotation: Any) -> bool:
         """Returns True if annotation is a Union"""
 
         # this check is needed because unions declared with the new syntax `A | B`
@@ -275,11 +275,11 @@ class StrawberryAnnotation:
         return annotation_origin is typing.Union
 
     @classmethod
-    def _strip_async_type(cls, annotation: Type) -> type:
+    def _strip_async_type(cls: StrawberryAnnotation, annotation: Type) -> type:
         return annotation.__args__[0]
 
     @classmethod
-    def _strip_lazy_type(cls, annotation: LazyType) -> type:
+    def _strip_lazy_type(cls: StrawberryAnnotation, annotation: LazyType) -> type:
         return annotation.resolve_type()
 
 

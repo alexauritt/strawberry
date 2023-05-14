@@ -1,4 +1,5 @@
 from io import BytesIO
+from typing import Dict
 
 from strawberry.file_uploads.utils import replace_placeholders_with_files
 
@@ -8,8 +9,8 @@ def test_does_deep_copy():
         "query": "mutation($file: Upload!) { upload_file(file: $file) { id } }",
         "variables": {"file": None},
     }
-    files_map = {}
-    files = {}
+    files_map: dict = {}
+    files: dict = {}
 
     result = replace_placeholders_with_files(operations, files_map, files)
     assert result == operations
@@ -21,8 +22,8 @@ def test_empty_files_map():
         "query": "mutation($files: [Upload!]!) { upload_files(files: $files) { id } }",
         "variables": {"files": [None, None]},
     }
-    files_map = {}
-    files = {"0": BytesIO(), "1": BytesIO()}
+    files_map: dict = {}
+    files: Dict[str, BytesIO] = {"0": BytesIO(), "1": BytesIO()}
 
     result = replace_placeholders_with_files(operations, files_map, files)
     assert result == operations
@@ -33,8 +34,8 @@ def test_empty_operations_paths():
         "query": "mutation($files: [Upload!]!) { upload_files(files: $files) { id } }",
         "variables": {"files": [None, None]},
     }
-    files_map = {"0": [], "1": []}
-    files = {"0": BytesIO(), "1": BytesIO()}
+    files_map: Dict[str, list] = {"0": [], "1": []}
+    files: Dict[str, BytesIO] = {"0": BytesIO(), "1": BytesIO()}
 
     result = replace_placeholders_with_files(operations, files_map, files)
     assert result == operations
